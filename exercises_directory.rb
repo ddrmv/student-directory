@@ -14,9 +14,22 @@ def input_students
 
         puts "Enter cohort: "
         cohort = gets.chomp
-        cohort = cohort.empty? ? "unknown".to_sym : cohort.to_sym
+        cohort = cohort.empty? ? "?".to_sym : cohort.to_sym
+
+        puts "Enter hobbies: "
+        hobbies = gets.chomp
+        hobbies = hobbies.empty? ? "?".to_sym : hobbies.to_sym
+
+        puts "Enter country of birth: "
+        country = gets.chomp
+        country = country.empty? ? "?".to_sym : country.to_sym
+
+        puts "Enter height: "
+        height = gets.chomp
+        height = height.empty? ? "?".to_sym : height.to_sym
         
-        students << {name: name, cohort: cohort}
+        students << {name: name, cohort: cohort, hobbies: hobbies,
+                     country: country, height: height}
         puts "Now we have #{students.count} students"
         # get another name from the user
     end
@@ -42,7 +55,9 @@ def print(students, letter)
     student = students[index]
         if ((student[:name][0].downcase == letter.downcase ||
             letter.empty?) && student[:name].length < 12)
-            puts "#{counter}. #{student[:name]} (#{student[:cohort]} cohort)"
+            puts "#{counter}. #{student[:name]}: cohort: #{student[:cohort]}; " +
+                 "hobbies: #{student[:hobbies]}; country: #{student[:country]}; " +
+                 "height: #{student[:height]}"
             counter += 1
         end
     index += 1
