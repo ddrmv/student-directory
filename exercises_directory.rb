@@ -8,7 +8,7 @@ def input_students
     # while the name is not empty, repeat this code
     loop do
         puts "Enter name: "
-        name = gets.chomp
+        name = gets.delete_suffix("\n")
         # stop entry and return the list on empty name entry
         break if name.empty?
 
