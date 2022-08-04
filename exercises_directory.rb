@@ -49,24 +49,28 @@ def select_letter
 end
 
 def print(students, letter)
-    index = 0
-    counter = 1
-    while index < students.length do
-    student = students[index]
-        if ((student[:name][0].downcase == letter.downcase ||
-            letter.empty?) && student[:name].length < 12)
-            puts "#{counter}. " + " #{student[:name]} ".center(74, "#") + 
-                 "\nCohort: #{student[:cohort]}; " +
-                 "Hobbies: #{student[:hobbies]}; Country: #{student[:country]}; " +
-                 "Height: #{student[:height]}"
-            counter += 1
+    cohort_list = students.map{|student| student[:cohort]}.uniq
+    cohort_list.each do |cohort|
+        puts " Cohort #{cohort} ".center(78, "#")
+        index = 0
+        counter = 1
+        while index < students.length do
+        student = students[index]
+            if ((student[:name][0].downcase == letter.downcase ||
+                letter.empty?) && student[:name].length < 12 && student[:cohort] == cohort)
+                puts "#{counter}. " + " #{student[:name]} " +
+                    "Cohort: #{student[:cohort]}; " +
+                    "Hobbies: #{student[:hobbies]}; Country: #{student[:country]}; " +
+                    "Height: #{student[:height]}"
+                counter += 1
+            end
+        index += 1
         end
-    index += 1
     end
 end
 
 def print_footer(students)
-    puts "Overall, we have #{students.count} great students"
+    puts "Overall, we have #{students.count} great #{students.count == 1 ? "student" : "students"}"
 end
 
 # nothing happens until we call the methods
