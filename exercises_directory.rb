@@ -58,7 +58,7 @@ def print(students, letter)
         student = students[index]
             if ((student[:name][0].downcase == letter.downcase ||
                 letter.empty?) && student[:name].length < 12 && student[:cohort] == cohort)
-                puts "#{counter}. " + " #{student[:name]} " +
+                puts "#{counter}. " + "#{student[:name]} " +
                     "Hobbies: #{student[:hobbies]}; Country: #{student[:country]}; " +
                     "Height: #{student[:height]}"
                 counter += 1
