@@ -74,7 +74,11 @@ end
 
 # nothing happens until we call the methods
 students = input_students
-letter_to_print = select_letter
-print_header
-print(students, letter_to_print)
-print_footer(students)
+if !students.empty?
+    letter_to_print = select_letter
+    print_header 
+    print(students, letter_to_print)
+    print_footer(students)
+else
+    puts "We currently don't have any students"
+end
