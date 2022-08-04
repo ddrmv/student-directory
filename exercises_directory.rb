@@ -31,8 +31,8 @@ end
 
 def print(students, letter)
     students.each_with_index do |student, index|
-        if (student[:name][0].downcase == letter.downcase ||
-            letter.empty?)
+        if ((student[:name][0].downcase == letter.downcase ||
+            letter.empty?) && student[:name].length < 12)
             puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
         end
     end
