@@ -30,11 +30,16 @@ def select_letter
 end
 
 def print(students, letter)
-    students.each_with_index do |student, index|
+    index = 0
+    counter = 1
+    while index < students.length do
+    student = students[index]
         if ((student[:name][0].downcase == letter.downcase ||
             letter.empty?) && student[:name].length < 12)
-            puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+            puts "#{counter}. #{student[:name]} (#{student[:cohort]} cohort)"
+            counter += 1
         end
+    index += 1
     end
 end
 
