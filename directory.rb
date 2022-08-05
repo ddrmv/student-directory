@@ -88,13 +88,18 @@ def load_students(filename = "students.csv")
 end
 
 def try_load_students
-    filename = ARGV.first    # first argument from the command line
-    return if filename.nil?  # get out of the method if no file given
+    filename = ARGV.empty? ? "students.csv" : ARGV.first
     if File.exist?(filename)
         load_students(filename)
         puts "Loaded #{@students.count} from #{filename}"
-    else
+    elsif filename != "students.csv"
         puts "Sorry, #{filename} doesn't exist"
+        exit
+    else  # file was defaulted to "students.csv" but it did not exist
+        file = File.open("students.csv", "w")
+        file.close
+        puts "Default file students.csv did not previously exist."
+        puts "It has now been created as an empty file."
         exit  # quit the program
     end
 end
