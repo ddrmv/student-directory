@@ -93,6 +93,7 @@ end
 
 def load_students(filename)
     file = File.open(filename, "r")
+    @students = []
     file.readlines.each do |line|
         name, cohort = line.chomp.split(',')
         @students << {name: name, cohort: cohort.to_sym}
