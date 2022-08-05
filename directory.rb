@@ -1,4 +1,5 @@
 @students = []
+LINE_LENGTH = 78
 
 def input_students
     puts "Please enter the names of the students"
@@ -13,7 +14,7 @@ end
 
 def print_header
     puts "The students of Villains Academy"
-    puts "-------------"
+    puts "-" * LINE_LENGTH
 end
 
 def print_students_list
