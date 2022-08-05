@@ -82,23 +82,23 @@ def input_filename
 end
 
 def save_students(filename)
-    file = File.open(filename, "w")
-    @students.each do |student|
-        student_data = [student[:name], student[:cohort]]
-        csv_line = student_data.join(",")
-        file.puts csv_line
+    File.open(filename, "w") do |file|
+        @students.each do |student|
+            student_data = [student[:name], student[:cohort]]
+            csv_line = student_data.join(",")
+            file.puts csv_line
+        end
     end
-    file.close
 end
 
 def load_students(filename)
-    file = File.open(filename, "r")
-    @students = []
-    file.readlines.each do |line|
-        name, cohort = line.chomp.split(',')
-        @students << {name: name, cohort: cohort.to_sym}
+    File.open(filename, "r") do |file|
+        @students = []
+        file.readlines.each do |line|
+            name, cohort = line.chomp.split(',')
+            @students << {name: name, cohort: cohort.to_sym}
+        end
     end
-    file.close
 end
 
 def try_load_students(filename)
@@ -109,8 +109,8 @@ def try_load_students(filename)
         puts "Sorry, #{filename} doesn't exist"
         exit
     else  # DEFAULT_FILENAME file is used but it did not exist
-        file = File.open(DEFAULT_FILENAME, "w")
-        file.close
+        File.open(DEFAULT_FILENAME, "w") do |file|
+        end
         puts "Default file #{DEFAULT_FILENAME} did not previously exist."
         puts "It has now been created as an empty file."
     end
