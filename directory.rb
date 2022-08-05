@@ -1,3 +1,5 @@
+require 'csv'
+
 @students = []
 LINE_LENGTH = 78
 DEFAULT_FILENAME = "students.csv"
@@ -82,22 +84,18 @@ def input_filename
 end
 
 def save_students(filename)
-    File.open(filename, "w") do |file|
+    CSV.open(filename, "w") do |csv|
         @students.each do |student|
-            student_data = [student[:name], student[:cohort]]
-            csv_line = student_data.join(",")
-            file.puts csv_line
+            csv << [student[:name], student[:cohort]]
         end
     end
 end
 
 def load_students(filename)
-    File.open(filename, "r") do |file|
-        @students = []
-        file.readlines.each do |line|
-            name, cohort = line.chomp.split(',')
-            @students << {name: name, cohort: cohort.to_sym}
-        end
+    @students = []
+    CSV.foreach(filename) do |line|
+        name, cohort = line
+        @students << {name: name, cohort: cohort.to_sym}
     end
 end
 
