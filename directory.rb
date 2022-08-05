@@ -1,5 +1,6 @@
 @students = []
 LINE_LENGTH = 78
+DEFAULT_FILENAME = "students.csv"
 
 def input_students
     puts "Please enter the names of the students"
@@ -47,7 +48,7 @@ def interactive_menu
             save_students(input_filename)
             print_menu_feedback "List of students has been saved."
         when "4"
-            load_students(input_filename)
+            try_load_students(input_filename)
             print_menu_feedback "List of students has been loaded."
         when "9"
             print_menu_feedback "Exiting student directory."
@@ -73,9 +74,10 @@ def show_students
 end
 
 def input_filename
-    puts "Enter file name to save to or press enter to use 'students.csv': "
+    puts "Enter file name to save to or press enter to use" +
+        " '#{DEFAULT_FILENAME}': "
     filename = STDIN.gets.chomp
-    filename = "students.csv" if filename.empty?
+    filename = DEFAULT_FILENAME if filename.empty?
     filename
 end
 
@@ -98,21 +100,26 @@ def load_students(filename)
     file.close
 end
 
-def try_load_students
-    filename = ARGV.empty? ? "students.csv" : ARGV.first
+def try_load_students(filename)
     if File.exist?(filename)
         load_students(filename)
         puts "Loaded #{@students.count} from #{filename}"
-    elsif filename != "students.csv"
+    elsif filename != DEFAULT_FILENAME
         puts "Sorry, #{filename} doesn't exist"
         exit
-    else  # default "students.csv" is used but it did not exist
-        file = File.open("students.csv", "w")
+    else  # DEFAULT_FILENAME file is used but it did not exist
+        file = File.open(DEFAULT_FILENAME, "w")
         file.close
-        puts "Default file students.csv did not previously exist."
+        puts "Default file #{DEFAULT_FILENAME} did not previously exist."
         puts "It has now been created as an empty file."
     end
 end
 
-try_load_students
+def startup_load_students
+    filename = ARGV.empty? ? DEFAULT_FILENAME : ARGV.first
+    try_load_students(filename)
+end
+
+
+startup_load_students
 interactive_menu
