@@ -27,6 +27,11 @@ def print_footer
     puts "Overall, we have #{@students.count} great students"
 end
 
+def print_menu_feedback(feedback_message)
+    puts "-" * LINE_LENGTH
+    puts feedback_message
+end
+
 def interactive_menu
     loop do
         print_menu
@@ -34,13 +39,18 @@ def interactive_menu
         case selection
         when "1"
             input_students
+            print_menu_feedback "Input of students has concluded."
         when "2"
             show_students
+            print_menu_feedback "List of students has been printed."
         when "3"
             save_students
+            print_menu_feedback "List of students has been saved."
         when "4"
             load_students
+            print_menu_feedback "List of students has been loaded."
         when "9"
+            print_menu_feedback "Exiting student directory."
             exit
         else
             puts "I don't know what you meant, try again"
